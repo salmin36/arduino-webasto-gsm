@@ -36,13 +36,34 @@ Arduino starts up the SIM800 gsm module via transistor. Transistor is conneted v
 After starting up the sim800 module we are reading all the new text messages. If there is new text messages we go trought the payloads. If the paylods contain either "temp" or "on" strings.
 
 <br><br>
-If the string is "on" then we put current trought the optocoupler via digital pin 4 for 1 second. After that we read the humidity and temperature values from digital pin 3 from DHT11 sensor.
+If the string is "on" then we put current trought the optocoupler via digital pin 4 for 1 second. Pins from optocoupler that are connected togeather are going behind Webasto oval timer and are soldered into webasto ON-button. <br>
+<img src="images/webasto-oval-front.png" width="200"> 
+<br>
+After that we read the humidity and temperature values from digital pin 3 from DHT11 sensor.
 After that we send text message to the number with <br><t>"Humidity: xx% Temperature: yy Arduino: on "
 <br><br>
 If the string is then we just read temperature and humidty and send message with corresponding values.
 
 <br>
 Last thing is that we are cutting of the current from SIM800 module stopping it. 
+<br>
 
 
+
+
+## Future developmet
+There is 3 slots available for 3 pin sensor used with DHT library.
+One could add all kinds of fun sensor into this one.
+<br>
+
+What comes to the pcb itself. It is taken exactly from arduino Leaonard board so it could be shrunk down a quite a bit. 
+
+Also the connection from arduino digital 4 pin to optocoupler should have a place for resistor in order to keep the arduino board not to be fried every time one applies currento to this pin.
+
+The place where the other 2 pins from the other side of optocoupler goes are the pins behind the webasto oval controllers webasto on switch.
+So it actually is now soldered on the oval controller itself.
+
+If the size of the box and the ciruit board would smaller and one would make 3d model out of the connector behing the webasto controller it could be just plugged in and no soldering would be required.
+<br><img src="images/webasto-oval-back.png" width="200"><br>
+In this case it would be good to have some push buttons added and also a small screen.
 
