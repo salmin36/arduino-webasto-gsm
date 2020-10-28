@@ -14,7 +14,9 @@ Circuit board has:
 - Transistor (TIP41C)
 - Diodes 
 - Optocoupler (PC123)
-- Some resistor
+- Some resistor (1k & 2k)
+
+The 2 resistors are as voltage divider circuit to lover the output voltage 5V of Tx from Arduino to SIM800 Rx port. That communication has to be lowered to allowed range to the SIM800. Sim800 is using 3.4V voltage. When signal comes from SIM800 to arduino that still works becouse 3.4V is determined to be logical 1 inside Arduino.
 
 <img src="images/pcb-top.png" width="200" >
 <img src="images/pcb-bottom.png" width="200" >
