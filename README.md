@@ -10,13 +10,20 @@ This repository is for the project that contains gerber files and c code for sys
   this stuff is worth it, you can buy me a beer in return.  Pasi Salminen 
   ----------------------------------------------------------------------------
 ```
+## Disclaimer, Use at your own risk
+```
+Any action you take upon the information on this Github repository is strictly at your own risk and I am not to be liable for any losses and damages in connection with the use of this information.
+```
+
+## Prerequisites
+You have to know how to solder and know a little bit of electronics. 
 
 
 ## Arduino Shield
 This project has working PCB and code for communicating between mobile phone and this component.
 It is used to remotely control Webasto heater and to get the tempereature inside a car.
 
-## PoC
+## Components
 Here we have actual prototype pcb:s and a photo from gerber file.
 
 Circuit board has:
@@ -25,6 +32,12 @@ Circuit board has:
 - Diodes 
 - Optocoupler (PC123)
 - Some resistor (1k & 2k)
+
+Supporting components:
+- Sim800 gsm module
+- sim card
+- DHT11 humidity and temperature sensor
+- some extra wires
 
 The 2 resistors are as voltage divider circuit to lover the output voltage 5V of Tx from Arduino to SIM800 Rx port. That communication has to be lowered to allowed range to the SIM800. Sim800 is using 3.4V voltage. When signal comes from SIM800 to arduino that still works becouse 3.4V is determined to be logical 1 inside Arduino.
 
