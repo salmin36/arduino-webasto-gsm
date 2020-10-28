@@ -17,6 +17,7 @@ Any action you take upon the information on this Github repository is strictly a
 
 ## Prerequisites
 You have to know how to solder and know a little bit of electronics. 
+If you do not know about gerber files, c/c++, voltage regulators, diodes, optocouplers/optoisolators, etc. then this is probably not for you :)  
 
 
 ## Arduino Shield
