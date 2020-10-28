@@ -11,7 +11,7 @@
 SoftwareSerial serialSIM800(SIM800_TX_PIN,SIM800_RX_PIN);
 
 
-#define DHTPIN 2     // what digital pin we're connected to
+#define DHTPIN 3     // what digital pin we're connected to
 #define DHTTYPE DHT11   // DHT 11
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -29,7 +29,16 @@ void setup() {
   //Being serial communication witj Arduino and SIM800
   serialSIM800.begin(9600);
   delay(1000);
+  pinMode(4, OUTPUT);
+  digitalWrite(4, LOW);
 
+  //Transistor on
+  pinMode(10, OUTPUT);
+  digitalWrite(10, LOW);
+  pinMode(11, OUTPUT);
+  digitalWrite(11, LOW);
+  
+  
   dht.begin();
 }
 
@@ -44,8 +53,8 @@ void loop() {
   delay(5000);
   
   get_text();
-  delay(300000);
-  //delay(30000);
+  //delay(300000);
+  delay(240000);
 }
 
 
@@ -89,6 +98,12 @@ String parse_number_from_row(String row){
 }
 
 
+void webasto_press(){
+  digitalWrite(4, HIGH);   
+  delay(1000);             
+  digitalWrite(4, LOW);
+}
+
 void parse_message_content_from_array(){
   Serial.println("Starting to parse message content from array");
   row = "";
@@ -109,9 +124,15 @@ void parse_message_content_from_array(){
             row.toLowerCase();
             if(row.indexOf("temp") != -1){
               Serial.println("We got the TEMP so sending text message as the response");
-              
-              send_text(number);         
+             
+              send_text(number,false);         
             }
+             else if(row.indexOf("on") != -1){
+              Serial.println("We got the On so sending text message as the response");
+              webasto_press();
+              send_text(number,true);         
+            }
+            
             return;
           }
         }
@@ -124,6 +145,9 @@ void parse_message_content_from_array(){
 
 
 void get_text(){
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
+  wait_and_read(6000, false);
   clear_messages();
   Serial.println("Trying to get text message");
   
@@ -132,10 +156,10 @@ void get_text(){
   
   Serial.println("Setting pin!");
   serialSIM800.write("AT\r\n");
-  wait_and_read(2000, false);
+  wait_and_read(3000, false);
   
   serialSIM800.write("AT+CPIN=1234\r\n");
-  wait_and_read(10000, false);
+  wait_and_read(30000, false);
   
   serialSIM800.write("AT+CMGF=1\r\n");
   
@@ -154,6 +178,8 @@ void get_text(){
   Serial.println("Stopped reading!");
   read_array();
   parse_message_content_from_array();
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
 }
 
 String read_sensor_data(){
@@ -196,7 +222,7 @@ void wait_and_read(int time, bool write_to_array){
 }
 
 
-void send_text(String number){
+void send_text(String number, bool push_on){
   if(number.length() < 13){
     Serial.println("Not valid phone number, EXITING...");
     return;
@@ -225,7 +251,12 @@ void send_text(String number){
   serialSIM800.print("AT+CMGS=" + number + "\r\n");
   delay(3000);
  
-  String message = read_sensor_data();
+  String message = "";
+  if(push_on){
+    message += "Webasto: on \r\n";
+  }
+  message += read_sensor_data();
+  
   //Send SMS content
   serialSIM800.print(message);
   delay(2000);
