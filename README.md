@@ -42,10 +42,10 @@ If the string is "on" then we put current trought the optocoupler via digital pi
 After that we read the humidity and temperature values from digital pin 3 from DHT11 sensor.
 After that we send text message to the number with <br><t>"Humidity: xx% Temperature: yy Arduino: on "
 <br><br>
-If the string is then we just read temperature and humidty and send message with corresponding values.
+If the string is "temp" then we just read temperature and humidty and send message with corresponding values.
 
 <br>
-Last thing is that we are cutting of the current from SIM800 module stopping it. 
+Last thing is that we are cutting off the current from SIM800 module and stopping it. 
 <br>
 
 
@@ -56,7 +56,7 @@ There is 3 slots available for 3 pin sensor used with DHT library.
 One could add all kinds of fun sensor into this one.
 <br>
 
-What comes to the pcb itself. It is taken exactly from arduino Leaonard board so it could be shrunk down a quite a bit. 
+What comes to the pcb itself. It is taken exactly from arduino Leonard board so it could be shrunk down a quite a bit. 
 
 Also the connection from arduino digital 4 pin to optocoupler should have a place for resistor in order to keep the arduino board not to be fried every time one applies currento to this pin.
 
