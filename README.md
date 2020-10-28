@@ -1,6 +1,16 @@
 # arduino-webasto-gsm
 This repository is for the project that contains gerber files and c code for system that is remotely controlling Webasto clock switch
 
+## Copyright under:
+```
+  ----------------------------------------------------------------------------
+  "THE BEER-WARE LICENSE" (Revision 42):
+  salmin36@gmail.com wrote this file.  As long as you retain this notice you
+  can do whatever you want with this stuff. If we meet some day, and you think
+  this stuff is worth it, you can buy me a beer in return.  Pasi Salminen 
+  ----------------------------------------------------------------------------
+```
+
 
 ## Arduino Shield
 This project has working PCB and code for communicating between mobile phone and this component.
